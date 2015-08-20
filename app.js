@@ -6,7 +6,7 @@ var app = express();
 app.listen(process.env.PORT || 5000);
 
 app.get('/', function (req, res, next) {
-    superagent.get('https://www.cnodejs.org')
+    superagent.get('http://movie.douban.com/')
         .end(function (err, sres) {
             if (err) {
                 return next(err);
@@ -16,7 +16,8 @@ app.get('/', function (req, res, next) {
             $("a.topic_title").each(function(i, element){
                 items.push({
                     'href' : $(element).attr('href'),
-                    'title' : $(element).attr('title')
+                    'title' : $(element).find("img").attr('alt'),
+                    'src':$(element).find("img").attr('src')
                 });
             });
             res.send(items);
